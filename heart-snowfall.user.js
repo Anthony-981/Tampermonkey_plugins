@@ -37,14 +37,14 @@
             height: 100%;
             pointer-events: none;
             z-index: 999999;
-            mix-blend-mode: multiply;
+            mix-blend-mode: normal;
         }
         
         .heart {
             position: absolute;
-            color: rgba(255, 0, 0, 0.6);
+            color: #FF0000;
             font-size: 20px;
-            text-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
             pointer-events: none;
             user-select: none;
             animation: fall linear;
@@ -53,11 +53,11 @@
         @keyframes fall {
             0% {
                 transform: translate(var(--start-x), var(--start-y));
-                opacity: 0.6;
+                opacity: 1;
             }
             100% {
                 transform: translate(var(--end-x), var(--end-y));
-                opacity: 0.1;
+                opacity: 0.2;
             }
         }
     `;
@@ -92,8 +92,8 @@
         heart.style.setProperty('--end-x', `${endX}px`);
         heart.style.setProperty('--end-y', `${endY}px`);
         
-        // 调整大小范围（稍微小一点）
-        const size = 12 + Math.random() * 16;
+        // 调整大小范围（改为更小的尺寸：8-16像素）
+        const size = 8 + Math.random() * 8;
         heart.style.fontSize = `${size}px`;
         
         // 增加动画持续时间（6-12秒）
@@ -108,21 +108,21 @@
     }
 
     function startHeartFall() {
-        // 减少初始创建数量，增加间隔
-        for(let i = 0; i < 6; i++) {
-            setTimeout(createHeart, i * 500);
+        // 增加初始创建数量到10个
+        for(let i = 0; i < 10; i++) {
+            setTimeout(createHeart, i * 300);
         }
         
-        // 降低创建频率
+        // 增加最大同时显示的爱心数量到20个
         setInterval(() => {
-            if (document.querySelectorAll('.heart').length < 12) {
+            if (document.querySelectorAll('.heart').length < 20) {
                 createHeart();
             }
-        }, 1200);
+        }, 800); // 缩短创建间隔
 
-        // 降低滚动时创建爱心的概率
+        // 增加滚动时创建爱心的概率到30%
         window.addEventListener('scroll', () => {
-            if (Math.random() < 0.2) { // 20%概率创建新爱心
+            if (Math.random() < 0.3) {
                 createHeart();
             }
         });
